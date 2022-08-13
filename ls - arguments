@@ -1,0 +1,31 @@
+ls : listing current directory content
+
+ls -r : list in reverse order
+
+ls -t : list as sorted by time
+
+ls -lrt : long list, reverse order, sorted by time.
+
+ls -l : long listing (Detailed Listing of Content in single line)
+
+	- first character will either be '-' for file or 'd' for directory
+	- next 9 characters shows the security
+	- next column gives owner or creator of file
+	- next column shows the group with whom file is shared
+	- next, size of file in bytes
+	- next, date and time of last modification
+	- and last, filename.
+	
+	-Security-
+	categorize 9 char into 3 groups
+	---	---	---
+	rwx	rwx	rwx
+	user	group	other
+	
+	r - read
+	w - write
+	x - execute the file (mostly for programs, scripts etc)
+	- - '-' denotes the permission has been revoked for either r,w or x.
+
+ls -a : lists all files including hidden
+

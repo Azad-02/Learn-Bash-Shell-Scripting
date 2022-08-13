@@ -1,0 +1,23 @@
+chmod [args] - 'change mode' comes with arguments
+
+1. First Argument - 'u' for user, 'g' for group, 'o' for others
+		  - also can be used for multiple (ug, ugo)
+
+2. Using '+' for adding
+	 '-' for removing
+	 '=' for assigning a Permission
+
+3. Second Argument right after +, - or + 
+	- speciify permission r, w or x or multiple permission like rw or rx
+
+4. Third Argument - name of the file whose permissions are to be changed
+
+eg. chmod u+x abc.txt
+    chmod ugo+rwx abc.txt 
+    chmod ug+rw,o-x abc.txt	    //adds r & w permission for user & group and removes x permission for others
+
+**shell script file without execution permission can be run by 
+>> sh xyz.sh      or 
+>> bash xyz.sh
+
+

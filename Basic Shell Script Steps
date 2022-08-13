@@ -1,0 +1,20 @@
+> Getting Started with Shell Scripting
+
+
+Basic Steps:
+
+
+Step1: Get what manual commmands are to be Scripted
+
+Step2: Write Shell script -
+	- open text file with extension .sh
+	- write first line as shebang or interpreter (#!/bin/bash or #!/bin/zsh)
+	- type or paste manual commands to be executed in sequence
+  
+Step3: Executing shell script
+	- provide execution permission by 
+  >> chmod +x xyz.sh
+	- when in same directory run with 
+  >> ./xyz.sh         
+    or else by complete path 
+  >> /home/user/xyz.sh

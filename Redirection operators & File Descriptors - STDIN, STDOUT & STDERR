@@ -1,0 +1,71 @@
+> Redirection operators and STDIN, STDOUT, STDERR
+
+
+- To store the output into a file instead of printing on terminal
+- To use file as an input command on terminal
+
+Types -
+  - Output redirection
+  - Input redirection
+  - Combining redirection
+
+1. Output Redirection Operator:
+
+	- '>' - create a new file
+		- if file already exists, rewrite the content into the file
+		>> ls -a > newfile.txt
+		
+	- '>>' - append to the file
+		 - appends the content of command from the last line of existing file
+		 >> ls -a >> newfile.txt
+
+2. Input Redirection Operator:
+
+	- '<' - provides input
+		- not necessarily be used
+		>> cat < newfile.txt
+
+3. Combining Redirection Operator:
+
+	- to send standard output of one command as a standard input to another command
+	- '|'
+  
+	for eg.
+		>> ls -lrt | awk '{print $1}'		  - this command gives list of items as input to awk command where column 1 ($1) is printed as a final output on CLI
+		>> ls -lrt | grep d 			      - grep command finds the letter 'd' in output of 'ls -lrt' and gives output by highlighting letter 'd'
+    >> ls -lrt | awk '{print $1}' | grep d    - combines all the three commands 
+
+
+
+> File Descriptor --
+
+Explained using an example of Storing JAVA version into a filename --
+
+>> java --version > java_v.txt
+- this command still prints the output on terminal
+- for some commands, the output produced is standard error 
+- to handle such errors we separate Standard output and Standard error i.e. STDOUT & STDERR using File Descriptors
+
+File Descriptor-
+
+- is simply an integer number to identify STDOUT, STDIN and STDERR
+	- 0 - STDIN - Standard Input
+	- 1 - STDOUT - Standard Output
+	- 2 - STDERR - Standard Error
+
+- to store STDOUT in file
+>> ls > succ.txt  		 	   	 both > & 1> does the same work. '>' is by default for success output
+>> ls 1> succ.txt   			  only if ls command gives successfull output, only then output is saved in succ.txt
+
+- to store STDERR in file
+>> ls 2> err.txt				  only if ls command gives standard error as error, only then that error is stored in err.txt
+
+eg.
+
+>> java --version 1> succ.txt 2> err.txt		    --if java --version gives successfull output,  it is saved in succ.txt, if it gives an error, it is saved in err.txt
+
+>> java --version 1> succ.txt 2> succ.txt		    -- both output and error and saved in succ.txt
+>> java --version 1> succ.txt 2>&1		        	-- does same thing as previous command, '2>&1' means, store error output where 1 is storing the output message
+>> java --version &> succ.txt				        -- does same thing. '&>' means, store both STDOUT and STDERR in succ.txt
+
+

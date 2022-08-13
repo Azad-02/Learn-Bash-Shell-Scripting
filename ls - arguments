@@ -29,3 +29,12 @@ ls -l : long listing (Detailed Listing of Content in single line)
 
 ls -a : lists all files including hidden
 
+
+
+
+
+> Usefull Commands -
+
+whatis 'command' : gives one line description about the command
+man 'command' : gives detailed manual about the command
+

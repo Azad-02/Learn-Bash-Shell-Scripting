@@ -1,0 +1,140 @@
+> Basic Introduction to Variables
+
+- Stores data/value
+
+- Declaration
+	- x=2 - dont leave spaces on either sides of =
+	- can store floats, strings, integer
+	- when using spaces for values, use double quotations
+	- to store commands in variables
+		>> d=$(date)
+		>> s=$(SHELL)
+
+- Accessing
+	- echo $x or echo "$x" or echo "${x}"
+
+TYPES - 
+
+1. System Defined Variables :
+	- list of all system variables by cmd, env
+	>> env
+
+2. User Defined Variables :
+	- as discussed previously
+	>> x=2
+	>> y=$(USER)
+
+RULES TO DEFINE VARIABLES - 
+
+1. Name of the Variable can contain only letters (a-z or A-Z), numbers (0-9), underscore characters (_).
+
+2. Name of the Variable cannot start with Number. 
+
+3. Don't include space in variable name.
+
+4. Variable names are case sensitive i.e. x=2 and X=4 are two different variables.
+
+
+---------------------------------------------------
+> Execute Shell Script from Another Shell Script --
+
+
+- Shell script to start apache2 server
+
+>> vi apache_start.sh
+
+>>> 
+#!/usr/bin/bash
+sudo systemctl start apache2
+>>>
+
+>> chmod +x apache_start.sh
+>> ./apache_start.sh
+
+- Shell script to stop apache2 server
+
+>> vi apache_stop.sh
+
+>>> #!/usr/bin/bash
+sudo systemctl stop apache2
+>>>
+
+>> chmod +x apache_stop.sh
+>> ./apache_stop.sh
+
+- To use both the Scripts together in one single Script -
+
+>> vi apache_start_stop.sh
+
+>>>
+#!/usr/bin/bash
+/home/user/Bash/apache_start.sh
+/home/user/Bash/apache_stop.sh
+>>>
+
+>> chmod +x *
+>> ./apache_start_stop.sh
+
+- REMEMBER
+1. ./(script_name) is used when the file is present in your current directory
+2. else, use complete path for the .sh file to be executed.
+3. Both these rules are applied when accessing another Shell Script inside a Shell Script or simply executing .sh file on terminal
+
+
+-----------------------------------------------
+> Access Variables defined in Another Script --
+
+
+- Define variables in Script1
+
+>> vi var.sh
+
+>>>
+#!/usr/bin/bash
+x=2
+y=3
+>>>
+
+>> chmod +x var.sh
+
+- Using those Variables in another Script
+
+>> vi add.sh
+
+>>>
+#!/usr/bin/bash
+source ./var.sh		            # sourcing a script into another script
+. ./var.sh			              # both '.' and 'source' are used for sourcing a script
+echo "The two Numbers are $x and $y"
+>>>
+
+>> chmod +x add.sh
+
+
+______________________________________________
+> Store exit status of command in Variable
+
+- Each Linux command returns status(in the form of integer) when executed
+- On successfull execution, status is returned 0, else it is some integer value
+
+SYNTAX of getting Exit Status - 
+
+>> echo $?		# returns status of just previously used command before 'echo $?'
+			# if it returns non-zero, then previous command was not executed, or was failed
+			
+STORING Exit Status -
+
+>> var=$?		# stores exit status of previous command in variable 'var'
+>> echo $var	# displays value stored in 'var'
+
+COMMON exit codes (varies from 0-255) -
+
+0     - Command was Successful
+1     - Catch all for general errors i.e. command is valid but found an exception during execution
+2     - Misuse of shell builtins (according to Bash documentation)
+126   - Command invoked cannot execute
+127   - “command not found”
+128   - Invalid argument to exit
+128+n - Fatal error signal “n”
+130   - Script terminated by Control-C
+255\* - Exit status out of range

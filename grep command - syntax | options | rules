@@ -1,0 +1,86 @@
+
+*> grep command for Scripting
+
+- is a filter command used for searching a string in file
+
+SYNTAX
+
+>> grep [options] "string/pattern" file/files
+>> cat file.txt | grep [options] "string/pattern"			# to display file and then search
+>> echo "text" | grep [options] "string/pattern"			# to search in simple text
+
+- to search in single file
+>> grep "<string>" <filename>
+
+- to search in multiple files
+>> grep "<string>" <filename1> <filename2> <..>
+
+- to search in all files present in current directory
+>> grep "<string>" *
+
+- to search string in simple text
+>> echo "<big string>" | grep "<string to search>"
+
+BASIC OPTIONS 
+
+-i : to ignore case for matching or searching / ignores case sensitivity of string to be searched
+-w : to match exactly whole word being searched
+-v : to display lines which are not having given string or text
+-o : to display only the matched parts from matched lines
+-n : to display line number and the line matched with the string
+-c : to display number of matched lines
+
+Syntax for these 3 options (>>grep [option] Number "string" file)
+-A : to display N lines after match
+-B : to display N lines before match
+-C : to display N lines around match i.e. N lines before and after match
+
+GREP command options for searching in whole directory
+-r : for recursive search in current directory as well as all subdirectories (>>grep -r "string" *)
+-l : to display only file names where text is matched
+-h : to hide filenames and display only content from files that matched
+
+- Apply grep command on output of other command
+>> echo "simple string" | grep "string" 
+>> apache2 -v | grep "version"
+
+ADVANCE OPTIONS
+
+-f : takes searching string/pattern from a file, one per line (>>grep -f <filename where search strings are present> <filename in which all those strings are to be searched>)
+-e : to search multiple search strings/patterns directly from command (>>grep -e "string1" -e "string2" -e "string3" file.txt) 
+-E : must use for searching patterns / simplified -e command (>>grep -E "string1|string2|string3" file.txt)
+
+** PATTERN is nothing but a string consisting of/representing Multiple Strings **
+
+DEFAULT syntax for grep command (mostly to be used) -
+>> grep -E[basic options] "pattern" file/files
+
+Rules to create PATTERN
+
+- xy|pq - Matches for xy or pq
+- ^xyz  - Matches for lines which are starting with 'xyz'
+- xyz$  - Matches for lines ending with 'xyz'
+-  ^$   - Match for the empty lines
+-   \   - To remove special purpose of any symbol (eg. \^ - searches for ^ character in file, \$ - searches for $ character in file, \.)
+-   .   - Matches any one character per dot (eg. >>grep -E "t..s" file.txt - searches for all words having 1st letter 't' and 4th letter 's', '..' can be any 2 char)
+-  \b   - Match the empty space at the edge of the string ("\bstring" - single space before 'string', "string\b" - single space after 'string')
+-   ?   - Preceeding character is optional and will be matched atmost once ("yf?" - presence of 'f' is optional ZERO times or ONCE just after 'y')
+-   *   - Preceeding character will be matched zero or more times ("yf*" - presence of 'f' can be ZERO or MORE times just after 'y')
+-   +   - Preceeding character must be present atleast once, can be N number of times ("yf+" - 'f' must be present ATLEAST ONCE)
+- [xyz] - Matches for the lines having either x or y or z. ("[abxyz]" = "a|b|x|y|z")
+- [a-d] - Matches for the lines haivng either a or b or c or d. ("[abcd]" = "a|b|c|d" = "a-d")
+-[a-dv-z] - Matches for the lines having a to d char or v to z. ("[a|b|c|d|v|w|x|y|z]" = "[a-dv-z]" = "[abcdvwxyz]")
+- ^[abc]- Matches for the lines starting with either a or b or c 
+- [^abc]- Matches for the lines which are not starting with either a or b or c
+-  {N}  - Preceeding string Matched exactly N times. ("xf{3}" - searches for x followed by 3 f i.e. "xf{3}" = "xfff")
+-  {N,} - Preceeding string Matched N or more than N times. ("xf{3,}" - searches for atleast 3 times f and can vary upto any number)
+- {N,M} - Preceeding string Matched atleast N times but not more than M times. ("xf{2,4}" - f can be 2,3 or 4 times after x)
+
+- [[:alnum:]] - Searches for lines having Alphanumeric characters - Alphabets and Numbers
+- [[:alpha:]] - Alphabetic characters
+- [[:blank:]] - Blank characters - space/tabs
+- [[:digit:]] - Digits - 0,1,2,3,4,5,6,7,8,9
+- [[:lower:]] - Lower-case Letters
+- [[:upper:]] - Upper-case Letters
+- [[:space:]] - Space Characters - tab, newline, verical tab, form feed, carriage return, & space
+

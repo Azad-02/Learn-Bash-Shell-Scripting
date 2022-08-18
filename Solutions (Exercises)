@@ -1,0 +1,12 @@
+# Solutions to Questions based on grep command
+
+
+1. Write a Pattern to Match only Directory.
+>> ls -lrt | grep -E "^d"
+
+2. Write a Pattern to Match only files.
+>> ls -lrt | grep -E "^-"
+
+3. Find the Servers ipv4 info from a file.
+>> grep -Ew "[0-9]{3}\.[0-9]{3}\.[0-9]{3}\.[0-9]{3}" ip.txt			
+>> grep -E "\b[0-9]{3}\.[0-9]{3}\.[0-9]{3}\.[0-9]{3}\b" ip.txt

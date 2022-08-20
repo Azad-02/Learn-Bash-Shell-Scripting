@@ -1,0 +1,113 @@
+> cut command
+
+- cut command is a powerful tool to extract parts of each line of a file
+
+- is based on
+	- Byte Position (-b)
+	- Character Position (-c)
+	- Fields based on Delimiter (by default delimiter is a tab) (-f)
+
+- complement
+	SYNTAX:
+		--complement 
+		>> cut --complement -c 4 /etc/passwd		# gives characters other than 4th character, applies to -b, -c, & -f
+
+USAGE -
+
+>> cut -c 1 /etc/passwd		# -c is for character position. This command will show first character of each line in passwd file
+
+>> cut -b 1 /etc/passwd		# -b is for byte position. This command will show first byte position i.e. nothing but first character (in this case)
+
+>> cut -c 4 /etc/passwd		# gives 4th position character from passwd file 
+
+>> cut -c 3,9 /etc/passwd	# gives 3rd and 9th character
+
+>> cut -c 1-8 /etc/passwd	# gives first to 8 characters
+
+>> cut -c 1-5,9 /etc/passwd	# gives first to 5th and 9th character 
+
+>> cut -c -10 /etc/passwd	# gives first positioned char to 10th character
+
+>> cut -c 4- /etc/passwd	# gives characters from 4th position to last position of each line
+
+
+ADVANCE - 
+
+-f : fields, tabs are by default field separators (aka delimiter)
+- mostly works with files having multiple columns, i.e. these columns are separated by some tabs or any other separators.
+
+** Use -s alongwith -f to ignore the line that do not contain a delimiter
+
+>> cut -f 1 file.txt 		# -f is for fields. This command will print the First column in file.txt
+
+>> cut -f 2,4 file.txt		# gives second and 4th column
+
+>> cut -f -5 file.txt		# gives first to 5th columns 
+
+>> cut -f 4- file.txt		# gives 4th to last columns
+
+-- These (-f) commands are applicable only for file containing columns/words separated by tab
+-- only '-f <num>' is not sufficient to filter lines containing symbols/spaces/special characters etc
+-- For files having symbols/spaces, like /etc/passwd, we filter using '-d'
+
+>> cut -d ":" -f 2 /etc/passwd		# prints words/characters after two colons (:), here, field separated is changed to ':', -f filter will work w.r.t. ':' instead of tabs
+
+>> cut -d ":" -f 4- /etc/passwd		# gives 4th to last words/characters separated by ':' 
+
+-- For printing this output with different field separator (only for displaying output) we use delimiter
+
+>> cut -d ":" -f 4- /etc/passwd --output-delimter="  "		# prints same output but instead of ':'s, they are separated by two spaces '  ' for displaying
+
+LIMITATION of delimiter -
+
+- When using delimter, we can separate fields using only one single character, no group or multiple characters are allowed for separation
+- This limitation is overcome with 'awk'. We can separate using group of characters, patterns etc.
+
+- for eg., file.txt contains:
+
+advnkh	kwbnck	wkndnx	cjnsxmz	
+wdcdes	xnnow	xnsscs	efdc213
+sxcd sc q3erfr q3wsdx vsdx
+dc dwvcvx  vfcdef cd e rfdc  ef vfs defv324
+
+-- here, words are separated by tabs on first 2 lines and by spaces on next 2 lines
+
+>> cut -f 4 file.txt		# gives 4th column of first 2 lines , because for -f by default separation field is tab (delimiter as a tab)
+
+>> cut -f 1 file.txt		# gives first column for first 2 lines and prints last two complete lines, because for -f, 'sxcd sc q3erfr q3wsdx vsdx' is a single unit as there are no tabs
+
+>> cut -sf 1 file.txt		# gives only first column of first 2 lines. As only first 2 lines have delimter (separator=tab) and other two don't
+--
+>> cut -d ' ' -f 1 file.txt	# prints first two complete lines and then first word of next two lines as delimiter is changed to ' ', which is not present in first 2 lines
+
+>> cut -d ' ' -sf 1 file.txt	# -s removes the lines where delimiter is not present, here, first 2 lines won't print as our delimiter is ' ' and not tab
+
+SYNTAX to be used in real-life scenarios -
+
+>> cat file.txt | cut -f 1			# cut command is applied on output of cat file.txt, i.e. output of cat is input for cut command
+
+>> cat /etc/passwd | cut -d ':' -f 4- 
+
+Example:
+
+** Combination of grep and cut command is a powerfull tool
+
+>> apache2 -v			
+Server version: Apache/2.4.54 (Debian)
+Server built:   2022-07-05T13:49:58
+
+-- print only version, 2.4.54 --
+
+>> apache2 -v | cut -d '/' -f 2
+2.4.54 (Debian)
+Server built:   2022-07-05T13:49:58								# printed another line too
+
+>> apache2 -v | grep "version" | cut -d '/' -f 2
+2.4.54 (Debian)
+
+>> apache2 -v | grep "version" | cut -d '/' -f 2 | cut -d ' ' -f 1		# to remove '(Debian)'
+2.4.54
+
+>> apache_version=$(apache2 -v | grep "version" | cut -d '/' -f 2 | cut -d ' ' -f 1)		# stores complete set of commands in a variable 'apache_version'
+>> echo "$apache_version"
+2.4.54

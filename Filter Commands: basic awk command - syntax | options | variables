@@ -54,3 +54,6 @@ LIMITATION --
 
 - In awk command, we will get only the fields and not the characters. For characters only cut command works.
 
+
+
+** ADVANCED AWK COMMAND FOR SHELL SCRIPTING WILL BE DISCUSSED LATER **

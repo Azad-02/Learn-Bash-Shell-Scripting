@@ -1,0 +1,98 @@
+> String Operations
+
+- Finding String Length
+
+>>>>
+#.usr/bin/bash
+
+name="My Name"
+name_length=${#name}		# Stores length of 'name' in 'name_length'	
+
+echo "$name"
+#echo "${#name}"		# This is comment
+echo "${name_length}"	
+
+<< MultiLine_comment
+codes inside this section
+will not be executed
+MultiLine_comment
+
+>>>>
+
+- Concatenation of Two Strings / Join two or more Paths
+
+>>>>
+#./usr/bin/bash
+
+path1="/etc/apache2/conf"
+path2="apache2.conf"
+
+apache2_conf_path=$path1$path2	# concatenates two paths
+echo "${apache2_conf_path}"
+
+actual_path=$path1/$path2	# insert '/' between two paths
+#actual_path=${path1}/${path2}
+echo "${actual_path}"
+
+>>>>
+
+- Operations - Uppercase / Lowercase
+
+>>>>
+#./usr/bin/bash
+
+name1="my_name"
+echo "Uppercase info is: ${name1^^}"	# only displays converted string
+echo "${name1}"					# original string remains unchanged
+
+uppername1=${name1^^}			# stores converted string into 'uppername1'
+lowername1=${name1,,}			# stores lowercase string into 'lowername1'
+
+echo "Uppercase=${uppername1}\nLowercase=${lowername1}"
+
+>>>>
+
+- dirname and basename (Commands)
+
+- dirname: strips/removes last component from file name
+- basename: gives last component  from file name
+	    : strip/removes directory and suffix from filenames
+
+>> dirname /etc/apache2/conf/apache2.conf
+/etc/apache2/conf
+
+>> basename /etc/apache2/conf/apache2.conf
+apache2.conf
+
+>> path1='/etc/apache2/conf/apache2.conf'
+>> dirname $path1
+/etc/apache2/conf
+>> basename $path1
+apache2.conf
+
+>> basename /etc/apache2/conf/apache2.conf .conf		# removes '.conf' from apache2.conf  	.conf is suffix in given command
+apache2
+
+- String Slicing or extracting Portion of a String
+	
+	- String slicing can be done using cut command
+	- Strings can be sliced using Index Numbers of string 
+
+>> name="shell scripting"
+>> echo "${name:0}"			# index 0 to last
+shell scripting
+>> echo "${name:1}"			# sclices from index 1 of string, i.e. from index 1 to last
+hell scripting	
+>> echo "${name:2:1}"			# print from index 2 but only 1 character
+e
+>> echo "${name:2:3}"			# print from index 2 but only 3 cahracters 
+ell
+
+
+
+
+
+
+
+
+

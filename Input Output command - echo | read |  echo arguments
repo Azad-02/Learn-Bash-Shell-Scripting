@@ -1,0 +1,59 @@
+
+*> Input Output Command for Shell Scripting
+
+- echo - an output command for Shell
+- read - takes Input from user on terminal and stores in variable
+	 SYNTAX
+	 >> read <var_name>
+
+>> read var1					# takes input on terminal and stores in var1
+>> read -p "Enter Something: " var1		# prompts message before taking input
+
+- REPLY - default variable for read command
+
+>> read -p "Enter: "
+>> echo ${REPLY}
+
+
+*> Input with Command Line Argument
+
+- aka Positional Arguments
+- Are the arguments/values specified at the command prompt while running commands/shell scripts.
+
+Script-
+<<<<
+#!/usr/bin/bash
+
+echo "$1"				# first argument after running script
+echo "$2"				# Second argument
+echo "$3"				# third argument
+
+<<<<
+
+./<script.sh> 12 32 14 53 "sv a" vrd			# values must be separated by spaces
+		  $1 $2 $3 $4   $5    $6 
+
+- $0 - gives name of the Script itself
+     - we can use name of the script inside that script using $0
+
+- ${>=(2 digit no.)} - to access arguments greater than 2 digit number, enter the number inside { } after $
+			   - ${10} - returns 10th argument given on terminal
+			   - $10 - returns values of '$1$0' together as an output.
+			   
+- $# - returns number of arguments passed in terminal
+
+- $@ - returns all the arguments passed
+
+
+
+
+
+
+
+
+
+
+
+
+- $* - returns all the arguments passed
+
